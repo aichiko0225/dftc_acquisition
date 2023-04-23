@@ -1,3 +1,4 @@
+import 'package:dftc_acquisition/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -15,11 +16,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
-      builder: (context, widget) {
-        const home = HomePage();
-        return const FlutterEasyLoading(child: home,);
-        // return home;
-      }
-    );
+        initialRoute: Routes.root,
+        getPages: Routes.getPages,
+        builder: (context, widget) {
+          const home = HomePage();
+          return const FlutterEasyLoading(
+            child: home,
+          );
+          // return home;
+        });
   }
 }
