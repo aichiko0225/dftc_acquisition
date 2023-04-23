@@ -3,14 +3,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
-import 'pages/home/home_view.dart';
+import './pages/tabbar/tabbar_view.dart';
 
-void main() {
-  runApp(const MyApp());
+Future<void> main() async {
+  runApp(const SsiApp());
 }
 
-class MyApp extends StatelessWidget {
-  const MyApp({super.key});
+class SsiApp extends StatelessWidget {
+  const SsiApp({super.key});
 
   // This widget is the root of your application.
   @override
@@ -19,9 +19,9 @@ class MyApp extends StatelessWidget {
         initialRoute: Routes.root,
         getPages: Routes.getPages,
         builder: (context, widget) {
-          const home = HomePage();
-          return const FlutterEasyLoading(
-            child: home,
+          var root = TabbarPage();
+          return FlutterEasyLoading(
+            child: root,
           );
           // return home;
         });

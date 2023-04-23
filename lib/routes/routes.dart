@@ -1,3 +1,4 @@
+import 'package:dftc_acquisition/pages/tabbar/tabbar_view.dart';
 import 'package:get/get.dart';
 
 import '../pages/home/home_view.dart';
@@ -22,6 +23,6 @@ class Routes {
 
   /// 别名映射页面
   static final List<GetPage> getPages = [
-    GetPage(name: root, page: () => HomePage(), transition: Transition.fadeIn),
+    GetPage(name: root, page: () => TabbarPage(), transition: Transition.fadeIn),
   ];
 }
