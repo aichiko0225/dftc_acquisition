@@ -6,24 +6,28 @@ import 'package:get/get.dart';
 import './pages/tabbar/tabbar_view.dart';
 
 Future<void> main() async {
-  runApp(const SsiApp());
+  WidgetsFlutterBinding.ensureInitialized();
+
+  runApp(SsiApp());
 }
 
 class SsiApp extends StatelessWidget {
-  const SsiApp({super.key});
+  SsiApp({super.key});
+
+  final GlobalKey<NavigatorState> _navigatorKey = GlobalKey();
 
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return GetMaterialApp(
+        navigatorKey: _navigatorKey,
         initialRoute: Routes.root,
         getPages: Routes.getPages,
+        routes: Routes.routesMap,
         builder: (context, widget) {
-          var root = TabbarPage();
           return FlutterEasyLoading(
-            child: root,
+            child: widget,
           );
-          // return home;
         });
   }
 }
