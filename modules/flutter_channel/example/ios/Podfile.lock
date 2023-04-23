@@ -1,0 +1,29 @@
+PODS:
+  - Flutter (1.0.0)
+  - flutter_channel (0.0.1):
+    - Flutter
+  - MBProgressHUD (1.2.0)
+
+DEPENDENCIES:
+  - Flutter (from `Flutter`)
+  - flutter_channel (from `.symlinks/plugins/flutter_channel/ios`)
+  - MBProgressHUD (~> 1.2.0)
+
+SPEC REPOS:
+  trunk:
+    - MBProgressHUD
+
+EXTERNAL SOURCES:
+  Flutter:
+    :path: Flutter
+  flutter_channel:
+    :path: ".symlinks/plugins/flutter_channel/ios"
+
+SPEC CHECKSUMS:
+  Flutter: 50d75fe2f02b26cc09d224853bb45737f8b3214a
+  flutter_channel: 29f1def74da4aba6a77025937f3f808dc764be28
+  MBProgressHUD: 3ee5efcc380f6a79a7cc9b363dd669c5e1ae7406
+
+PODFILE CHECKSUM: 6ffe0aae4a1357456e313becac9349722837bf78
+
+COCOAPODS: 1.11.2
