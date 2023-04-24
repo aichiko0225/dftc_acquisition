@@ -28,14 +28,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   // 事件处理
   showSelectItemPickerView(_PickerType type) {
     if (type == _PickerType.vehicle) {
-      BrnMultiDataPicker(
-        context: context,
-        title: '来源',
-        delegate: Brn1RowDelegate(firstSelectedIndex: 1),
-        confirmClick: (list) {
-          BrnToast.show(list.toString(), context);
-        },
-      ).show();
+      
     } else if (type == _PickerType.inquiry) {
 
     }
