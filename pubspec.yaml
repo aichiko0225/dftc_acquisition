@@ -35,7 +35,7 @@ dependencies:
   flutter_channel:
     path: ./modules/flutter_channel
 
-  webview_flutter: ^4.2.0
+#  webview_flutter: ^4.2.0
   # 贝壳的UI库
   bruno: ^3.3.0
   get: ^4.6.5
@@ -48,7 +48,7 @@ dependencies:
   # 屏幕适配
   flutter_screenutil: ^5.7.0
   # 设备信息
-  device_info_plus: ^8.2.0
+#  device_info_plus: ^8.2.0
   #权限
   permission_handler: ^10.2.0
   # 刷新加载

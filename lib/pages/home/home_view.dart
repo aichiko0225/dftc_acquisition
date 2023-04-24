@@ -43,7 +43,9 @@ class _HomePageState extends State<HomePage> {
         TextButton.icon(
             onPressed: () {
               Get.toNamed(Routes.questionnaire);
-            }, icon: Icon(Icons.adb), label: Text('调查问卷')),
+            },
+            icon: Icon(Icons.adb),
+            label: Text('调查问卷')),
       ],
     );
   }
