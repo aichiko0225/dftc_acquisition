@@ -164,7 +164,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
           children: [
             Positioned(
               child: Image(
-                  image: AssetImage('./images/aaa.png'), fit: BoxFit.fill),
+                  image: AssetImage('./statics/images/aaa.png'), fit: BoxFit.fill),
               left: 0,
               right: 0,
               top: 0,

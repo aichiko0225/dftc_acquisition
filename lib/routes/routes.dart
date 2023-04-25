@@ -1,5 +1,8 @@
+import 'package:dftc_acquisition/pages/launch/launch_page.dart';
+import 'package:dftc_acquisition/pages/login/login_view.dart';
 import 'package:dftc_acquisition/pages/questionnaire/questionnaire_view.dart';
 import 'package:dftc_acquisition/pages/tabbar/tabbar_view.dart';
+import 'package:dftc_acquisition/pages/webview_page.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -31,13 +34,19 @@ class Routes {
     root: (context) => TabbarPage(),
     home: (context) => HomePage(),
     questionnaire: (context) => QuestionnairePage(),
+    login: (context) => LoginPage(),
+    launch: (context) => LaunchPage(),
+    webview: (context) => WebViewPage(),
   };
 
   /// 别名映射页面
   static final List<GetPage> getPages = [
     GetPage(
         name: root, page: () => TabbarPage(), transition: Transition.fadeIn),
+    GetPage(name: login, page: () => LoginPage(), transition: Transition.fadeIn),
+    GetPage(name: launch, page: () => LaunchPage(), transition: Transition.fadeIn),
     GetPage(name: home, page: () => HomePage(), transition: Transition.native),
+    GetPage(name: webview, page: () => WebViewPage(), transition: Transition.native),
     GetPage(
         name: questionnaire,
         page: () => QuestionnairePage(),
