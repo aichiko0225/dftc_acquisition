@@ -1,5 +1,6 @@
 import 'package:bruno/bruno.dart';
 import 'package:dftc_acquisition/config/extensions.dart';
+import 'package:dftc_acquisition/pages/questionnaire/introduce/introduce_evaluate.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,9 +55,7 @@ class _IntroducePageState extends State<IntroducePage>
               },
               children: [
                 _businessIntroView(),
-                Container(
-                  color: Colors.blue,
-                ),
+                _evaluate(),
                 Container(
                   color: Colors.green,
                 ),
@@ -178,12 +177,48 @@ class _IntroducePageState extends State<IntroducePage>
   }
 
   //
-Widget _evaluate(){
+  Widget _evaluate() {
     return Container(
+      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
       height: 200,
-      child: GridView.count(crossAxisCount: 4,
-        children: [Icon(Icons.dangerous),Text('data')],
+      child: GridView.builder(
+        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 4,
+            mainAxisSpacing: 30,
+            crossAxisSpacing: 4,
+            childAspectRatio: 1),
+        itemCount: 8,
+        itemBuilder: (BuildContext context, int index) {
+          return _imageEvaluate();
+        },
       ),
     );
-}
+  }
+
+  //
+  Widget _imageEvaluate() {
+    return GestureDetector(
+      onTap: (){
+        Navigator.of(context)
+            .push(MaterialPageRoute(builder: (context) => IntroduceEvaluate()));
+      },
+      child: Stack(
+        children: [
+          Positioned(
+            child: Image(
+                image: AssetImage('./statics/images/aaa.png'),
+                fit: BoxFit.fill),
+            width: 100,
+            height: 100,
+          ),
+          Positioned(
+            child: Text(
+              'sss',
+              style: TextStyle(color: Colors.white),
+            ),
+          ),
+        ],
+      ),
+    );
+  }
 }
