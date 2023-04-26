@@ -1,6 +1,6 @@
 import 'package:bruno/bruno.dart';
 import 'package:dftc_acquisition/config/extensions.dart';
-import 'package:dftc_acquisition/pages/questionnaire/introduce/introduce_evaluate.dart';
+import 'package:dftc_acquisition/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -22,6 +22,8 @@ class _IntroducePageState extends State<IntroducePage>
   late TabController _tabController;
 
   final PageController _pageController = PageController();
+
+  var selectedIndex = -1;
 
   @override
   void initState() {
@@ -55,7 +57,7 @@ class _IntroducePageState extends State<IntroducePage>
               },
               children: [
                 _businessIntroView(),
-                _evaluate(),
+                _evaluateView(),
                 Container(
                   color: Colors.green,
                 ),
@@ -129,32 +131,30 @@ class _IntroducePageState extends State<IntroducePage>
                         color: themeConfig.colorTextBase,
                         fontSize: 16,
                         fontWeight: FontWeight.bold),
-                  ),Container(
-                      padding: EdgeInsets.symmetric(
-                        vertical: 12,
-                      ),
-                      height: 300,
-                      child: GridView.builder(
-                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                              mainAxisSpacing: 10,
-                              crossAxisSpacing: 10,
-                              crossAxisCount: 4),
-                          itemCount: personArr.length,
-                          itemBuilder: (contex, index) {
-                            Widget avatar = Image.asset(
-                                "./statics/assets/images/profilephoto.png",
-                                width: 60.0);
-                            var name = personArr[index];
-                            return Container(
-                              height: 80,
-                              child: Column(
-                                children: [
-                                  ClipOval(child: avatar),
-                                  Text(name)
-                                ],
-                              ),
-                            );
-                          }),
+                  ),
+                  Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: 12,
+                    ),
+                    height: 300,
+                    child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            mainAxisSpacing: 10,
+                            crossAxisSpacing: 10,
+                            crossAxisCount: 4),
+                        itemCount: personArr.length,
+                        itemBuilder: (contex, index) {
+                          Widget avatar = Image.asset(
+                              "./statics/assets/images/profilephoto.png",
+                              width: 60.0);
+                          var name = personArr[index];
+                          return Container(
+                            height: 80,
+                            child: Column(
+                              children: [ClipOval(child: avatar), Text(name)],
+                            ),
+                          );
+                        }),
                   )
                 ],
               ),
@@ -177,46 +177,141 @@ class _IntroducePageState extends State<IntroducePage>
   }
 
   //
-  Widget _evaluate() {
+  Widget _evaluateView() {
+    if (selectedIndex > 0) {
+      return _vehicleSelectedView();
+    }
     return Container(
-      margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+      margin: EdgeInsets.symmetric(horizontal: 0, vertical: 0),
       height: 200,
-      child: GridView.builder(
-        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount: 4,
-            mainAxisSpacing: 30,
-            crossAxisSpacing: 4,
-            childAspectRatio: 1),
-        itemCount: 8,
-        itemBuilder: (BuildContext context, int index) {
-          return _imageEvaluate();
-        },
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            child: Text(
+              'M18试驾评价',
+              style: TextStyle(
+                  color: themeConfig.colorTextBase,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
+            ),
+          ),
+          Expanded(
+            child: GridView.builder(
+              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                  crossAxisCount: 4,
+                  mainAxisSpacing: 10,
+                  crossAxisSpacing: 10,
+                  childAspectRatio: 1),
+              itemCount: 8,
+              itemBuilder: (BuildContext context, int index) {
+                return _imageEvaluate(index);
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
 
   //
-  Widget _imageEvaluate() {
+  Widget _imageEvaluate(int index) {
     return GestureDetector(
-      onTap: (){
-        Navigator.of(context)
-            .push(MaterialPageRoute(builder: (context) => IntroduceEvaluate()));
+      onTap: () {
+        setState(() {
+          selectedIndex = index;
+        });
       },
-      child: Stack(
+      child: Container(
+        child: Column(
+          children: [
+            Image(
+              image: AssetImage('./statics/images/aaa.png'),
+              fit: BoxFit.fill,
+              width: 70,
+              height: 70,
+            ),
+            Text(
+              '车型名称',
+              style: TextStyle(color: themeConfig.colorTextBase),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
+  Widget _vehicleSelectedView() {
+    return Container(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Positioned(
-            child: Image(
-                image: AssetImage('./statics/images/aaa.png'),
-                fit: BoxFit.fill),
-            width: 100,
-            height: 100,
-          ),
-          Positioned(
+          Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
             child: Text(
-              'sss',
-              style: TextStyle(color: Colors.white),
+              'M18试驾评价',
+              style: TextStyle(
+                  color: themeConfig.colorTextBase,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold),
             ),
           ),
+          Container(
+            padding: EdgeInsets.only(left: 12, right: 12),
+            child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Container(
+                  child: Row(
+                    children: [
+                      Image(
+                        image: AssetImage('./statics/images/aaa.png'),
+                        fit: BoxFit.fill,
+                        width: 70,
+                        height: 70,
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Text(
+                          '车型名称',
+                          style: TextStyle(color: themeConfig.colorTextBase),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                TextButton(
+                  onPressed: () {
+                    setState(() {
+                      selectedIndex = -1;
+                    });
+                  },
+                  child: Text('换车',style: TextStyle(color: Colors.white),),
+                  style: ButtonStyle(
+                      backgroundColor:
+                          MaterialStateProperty.all(themeConfig.brandPrimary)),
+                )
+              ],
+            ),
+          ),Container(
+              height: 50,
+              width: double.infinity,
+              margin: EdgeInsets.only(top: 20),
+              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+              child: TextButton(
+                onPressed: () {
+                  Get.toNamed(Routes.questionnaire);
+                },
+                child: Text(
+                  '立即评价',
+                  style: TextStyle(color: Colors.white),
+                ),
+                style: ButtonStyle(
+                    backgroundColor:
+                        MaterialStateProperty.all(themeConfig.brandPrimary)),
+              ),
+            ),
         ],
       ),
     );
