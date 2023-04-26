@@ -27,9 +27,21 @@ class SsiApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    if (GetPlatform.isWeb) {
+      return GetMaterialApp(
+          navigatorKey: _navigatorKey,
+          initialRoute: Routes.m18_introduce,
+          getPages: Routes.getPages,
+          routes: Routes.routesMap,
+          builder: (context, widget) {
+            return FlutterEasyLoading(
+              child: widget,
+            );
+          });
+    }
     return GetMaterialApp(
         navigatorKey: _navigatorKey,
-        initialRoute: Routes.launch,
+        initialRoute: Routes.m18_introduce,
         getPages: Routes.getPages,
         routes: Routes.routesMap,
         builder: (context, widget) {
