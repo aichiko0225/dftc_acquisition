@@ -49,7 +49,7 @@ class _IntroducePageState extends State<IntroducePage>
                 },
                 children: [
                   Container(color: Colors.red,),
-                  Container(color: Colors.blue,),
+                  _evaluate(),
                   Container(color: Colors.green,),
                 ],
               ),
@@ -60,6 +60,7 @@ class _IntroducePageState extends State<IntroducePage>
     );
   }
 
+  //
   Widget _tabbarView() {
     return BrnTabBar(
       controller: _tabController,
@@ -69,4 +70,14 @@ class _IntroducePageState extends State<IntroducePage>
       },
     );
   }
+
+  //
+Widget _evaluate(){
+    return Container(
+      height: 200,
+      child: GridView.count(crossAxisCount: 4,
+        children: [Icon(Icons.dangerous),Text('data')],
+      ),
+    );
+}
 }

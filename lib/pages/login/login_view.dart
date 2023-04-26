@@ -168,13 +168,15 @@ class _LoginPageState extends State<LoginPage> {
                   fontWeight: FontWeight.bold))),
           onPressed: () async {
             //点击登录按钮，解除焦点，回收键盘
-            Application.shared.appState.loginSuccess("token", phoneNum: logic.phoneNum);
+            Application.shared.appState
+                .loginSuccess("token", phoneNum: logic.phoneNum);
             Get.offNamed(Routes.root);
           },
-          child: Text("登录", style: TextStyle(
-              color: Colors.white,
-              fontSize: 16,
-              fontWeight: FontWeight.bold))),
+          child: Text("登录",
+              style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 16,
+                  fontWeight: FontWeight.bold))),
     );
   }
 

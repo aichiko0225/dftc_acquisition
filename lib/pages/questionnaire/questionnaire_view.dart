@@ -1,14 +1,12 @@
 import 'package:bruno/bruno.dart';
+import 'package:dftc_acquisition/pages/scene/scene_particulars.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
 import 'questionnaire_logic.dart';
 
-enum _PickerType {
-  vehicle,
-  inquiry
-}
+enum _PickerType { vehicle, inquiry }
 
 /// 问卷调查开始选择页面
 class QuestionnairePage extends StatefulWidget {
@@ -28,10 +26,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   // 事件处理
   showSelectItemPickerView(_PickerType type) {
     if (type == _PickerType.vehicle) {
-      
-    } else if (type == _PickerType.inquiry) {
-
-    }
+    } else if (type == _PickerType.inquiry) {}
   }
 
   @override
@@ -64,6 +59,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
               child: _vehicleScene()),
           Padding(
               padding: EdgeInsets.only(left: 10, right: 10), child: _scene()),
+          Padding(
+              padding: EdgeInsets.only(left: 10, right: 10), child: _button()),
         ],
       ),
     );
@@ -151,6 +148,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     });
   }
 
+  //
   Widget _gridItemView(int index) {
     var text = logic.sceneDataArr[index];
     var selected = logic.selectIndexArr.contains(index);
@@ -181,17 +179,35 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
             ),
             selected
                 ? Positioned(
-                right: 20,
-                top: 5,
-                child: Icon(
-                  Icons.check_circle_outline,
-                  color: Colors.blueAccent,
-                ),
-                width: 36,
-                height: 36)
+                    right: 20,
+                    top: 5,
+                    child: Icon(
+                      Icons.check_circle_outline,
+                      color: Colors.blueAccent,
+                    ),
+                    width: 36,
+                    height: 36)
                 : Container()
           ],
         ),
+      ),
+    );
+  }
+
+  //下一步
+  Widget _button() {
+    return Container(
+      height: 66,
+      padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),
+      child: TextButton(
+        child: Text("下一步"),
+        style: ButtonStyle(
+            backgroundColor: MaterialStateProperty.all(Colors.blue),
+            foregroundColor: MaterialStateProperty.all(Colors.white)),
+        onPressed: () {
+          Navigator.of(context).push(
+              MaterialPageRoute(builder: (context) => SceneParticulars()));
+        },
       ),
     );
   }
