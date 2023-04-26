@@ -29,6 +29,7 @@ class SsiApp extends StatelessWidget {
   Widget build(BuildContext context) {
     if (GetPlatform.isWeb) {
       return GetMaterialApp(
+          debugShowCheckedModeBanner: false,
           navigatorKey: _navigatorKey,
           initialRoute: Routes.m18_introduce,
           getPages: Routes.getPages,
@@ -40,6 +41,7 @@ class SsiApp extends StatelessWidget {
           });
     }
     return GetMaterialApp(
+        debugShowCheckedModeBanner: false,
         navigatorKey: _navigatorKey,
         initialRoute: Routes.m18_introduce,
         getPages: Routes.getPages,
