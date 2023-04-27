@@ -30,9 +30,10 @@ class _IntroducePageState extends State<IntroducePage>
     // TODO: implement initState
     super.initState();
 
-    tabs.add(BadgeTab(text: "整体介绍"));
-    tabs.add(BadgeTab(text: "试驾评价"));
-    tabs.add(BadgeTab(text: "汇总分析"));
+    tabs.add(BadgeTab(text: "介绍"));
+    tabs.add(BadgeTab(text: "评价"));
+    tabs.add(BadgeTab(text: "分析"));
+    tabs.add(BadgeTab(text: "配置"));
     _tabController = TabController(length: tabs.length, vsync: this);
   }
 
@@ -61,6 +62,9 @@ class _IntroducePageState extends State<IntroducePage>
                 Container(
                   color: Colors.green,
                 ),
+                Container(
+                  color: Colors.purple,
+                ),
               ],
             ),
           )
@@ -69,16 +73,8 @@ class _IntroducePageState extends State<IntroducePage>
     );
   }
 
+  //介绍
   Widget _businessIntroView() {
-    var personArr = [
-      '王洛然',
-      '陈志华',
-      '刘佳明',
-      '老万已',
-      '催大学',
-      '催大帅',
-      '催小帅',
-    ];
     return Container(
       color: themeConfig.fillBody,
       child: SingleChildScrollView(
@@ -125,36 +121,17 @@ class _IntroducePageState extends State<IntroducePage>
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(
-                    'M18人员介绍',
-                    style: TextStyle(
-                        color: themeConfig.colorTextBase,
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  ),
-                  Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: 12,
-                    ),
-                    height: 300,
-                    child: GridView.builder(
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                            mainAxisSpacing: 10,
-                            crossAxisSpacing: 10,
-                            crossAxisCount: 4),
-                        itemCount: personArr.length,
-                        itemBuilder: (contex, index) {
-                          Widget avatar = Image.asset(
-                              "./statics/assets/images/profilephoto.png",
-                              width: 60.0);
-                          var name = personArr[index];
-                          return Container(
-                            height: 80,
-                            child: Column(
-                              children: [ClipOval(child: avatar), Text(name)],
-                            ),
-                          );
-                        }),
+                  Row(
+                    children: [
+                      Text(
+                        'M18人员',
+                        style: TextStyle(
+                            color: themeConfig.colorTextBase,
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold),
+                      ),
+                      Padding(padding: EdgeInsets.only(left:300),child: Text('共40人>'),)
+                    ],
                   )
                 ],
               ),
@@ -176,7 +153,7 @@ class _IntroducePageState extends State<IntroducePage>
     );
   }
 
-  //
+  //评价
   Widget _evaluateView() {
     if (selectedIndex > 0) {
       return _vehicleSelectedView();
@@ -233,7 +210,7 @@ class _IntroducePageState extends State<IntroducePage>
               height: 70,
             ),
             Text(
-              '车型名称',
+              '车辆编号',
               style: TextStyle(color: themeConfig.colorTextBase),
             ),
           ],
@@ -242,6 +219,7 @@ class _IntroducePageState extends State<IntroducePage>
     );
   }
 
+  //评价
   Widget _vehicleSelectedView() {
     return Container(
       child: Column(
@@ -274,7 +252,7 @@ class _IntroducePageState extends State<IntroducePage>
                       Padding(
                         padding: const EdgeInsets.only(left: 8.0),
                         child: Text(
-                          '车型名称',
+                          '车辆编号',
                           style: TextStyle(color: themeConfig.colorTextBase),
                         ),
                       ),
@@ -287,31 +265,35 @@ class _IntroducePageState extends State<IntroducePage>
                       selectedIndex = -1;
                     });
                   },
-                  child: Text('换车',style: TextStyle(color: Colors.white),),
+                  child: Text(
+                    '返回上一步',
+                    style: TextStyle(color: Colors.white),
+                  ),
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(themeConfig.brandPrimary)),
                 )
               ],
             ),
-          ),Container(
-              height: 50,
-              width: double.infinity,
-              margin: EdgeInsets.only(top: 20),
-              padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
-              child: TextButton(
-                onPressed: () {
-                  Get.toNamed(Routes.questionnaire);
-                },
-                child: Text(
-                  '立即评价',
-                  style: TextStyle(color: Colors.white),
-                ),
-                style: ButtonStyle(
-                    backgroundColor:
-                        MaterialStateProperty.all(themeConfig.brandPrimary)),
+          ),
+          Container(
+            height: 50,
+            width: double.infinity,
+            margin: EdgeInsets.only(top: 20),
+            padding: EdgeInsets.symmetric(horizontal: 12, vertical: 2),
+            child: TextButton(
+              onPressed: () {
+                Get.toNamed(Routes.questionnaire);
+              },
+              child: Text(
+                '立即评价',
+                style: TextStyle(color: Colors.white),
               ),
+              style: ButtonStyle(
+                  backgroundColor:
+                      MaterialStateProperty.all(themeConfig.brandPrimary)),
             ),
+          ),
         ],
       ),
     );
