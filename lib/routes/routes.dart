@@ -1,3 +1,4 @@
+import 'package:dftc_acquisition/pages/evaluation_details/evaluation_details_view.dart';
 import 'package:dftc_acquisition/pages/launch/launch_page.dart';
 import 'package:dftc_acquisition/pages/login/login_view.dart';
 import 'package:dftc_acquisition/pages/questionnaire/introduce/introduce_page.dart' as M18;
@@ -21,6 +22,8 @@ class Routes {
   static String questionnaire = '/grid/questionnaire';
   static String m18_introduce = '/m18/introduce';
 
+  static String evaluation_details = '/m18/evaluation_details';
+
   /// web页面
   static String webview = '/webview';
 
@@ -40,6 +43,7 @@ class Routes {
     launch: (context) => LaunchPage(),
     webview: (context) => WebViewPage(),
     m18_introduce: (context) => M18.IntroducePage(),
+    evaluation_details: (context) => EvaluationDetailsPage(),
   };
 
   /// 别名映射页面
@@ -51,6 +55,8 @@ class Routes {
     GetPage(name: home, page: () => HomePage(), transition: Transition.native),
     GetPage(name: m18_introduce, page: () => M18.IntroducePage(), transition: Transition.native),
     GetPage(name: webview, page: () => WebViewPage(), transition: Transition.native),
+    GetPage(name: webview, page: () => WebViewPage(), transition: Transition.native),
+    GetPage(name: evaluation_details, page: () => EvaluationDetailsPage(), transition: Transition.native),
     GetPage(
         name: questionnaire,
         page: () => QuestionnairePage(),

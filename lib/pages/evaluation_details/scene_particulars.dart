@@ -1,8 +1,8 @@
-import 'package:dftc_acquisition/pages/scene/scene_answer.dart';
+
 import 'package:flutter/material.dart';
 
-class SceneParticulars extends StatefulWidget {
-  const SceneParticulars({super.key});
+class SceneParticularsPage extends StatefulWidget {
+  const SceneParticularsPage({super.key});
 
   @override
   State<StatefulWidget> createState() {
@@ -10,7 +10,7 @@ class SceneParticulars extends StatefulWidget {
   }
 }
 
-class SceneParticularsOne extends State<SceneParticulars> {
+class SceneParticularsOne extends State<SceneParticularsPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -115,8 +115,7 @@ class SceneParticularsOne extends State<SceneParticulars> {
           size: 40,
         ),
         onPressed: () {
-          Navigator.of(context)
-              .push(MaterialPageRoute(builder: (context) => SceneAnswer()));
+
         },
       ),
     );

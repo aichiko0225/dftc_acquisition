@@ -1,6 +1,5 @@
 import 'package:bruno/bruno.dart';
 import 'package:dftc_acquisition/components/delegate/picker_delegate.dart';
-import 'package:dftc_acquisition/pages/scene/scene_particulars.dart';
 import 'package:dftc_acquisition/utils/ssi_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
@@ -216,8 +215,6 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
             backgroundColor: MaterialStateProperty.all(Colors.blue),
             foregroundColor: MaterialStateProperty.all(Colors.white)),
         onPressed: () {
-          Navigator.of(context).push(
-              MaterialPageRoute(builder: (context) => SceneParticulars()));
         },
       ),
     );
