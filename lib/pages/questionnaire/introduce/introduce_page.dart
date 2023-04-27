@@ -40,6 +40,7 @@ class _IntroducePageState extends State<IntroducePage>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: themeConfig.fillBody,
       appBar: AppBar(
         title: Text(
           'M18 拉练',
@@ -122,6 +123,7 @@ class _IntroducePageState extends State<IntroducePage>
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         'M18人员',
@@ -130,7 +132,10 @@ class _IntroducePageState extends State<IntroducePage>
                             fontSize: 16,
                             fontWeight: FontWeight.bold),
                       ),
-                      Padding(padding: EdgeInsets.only(left:300),child: Text('共40人>'),)
+                      Padding(
+                        padding: EdgeInsets.only(right: 12),
+                        child: Text('共40人  >'),
+                      )
                     ],
                   )
                 ],
@@ -204,7 +209,7 @@ class _IntroducePageState extends State<IntroducePage>
         child: Column(
           children: [
             Image(
-              image: AssetImage('./statics/images/aaa.png'),
+              image: AssetImage('./statics/images/m18.jpeg'),
               fit: BoxFit.fill,
               width: 70,
               height: 70,
@@ -222,6 +227,7 @@ class _IntroducePageState extends State<IntroducePage>
   //评价
   Widget _vehicleSelectedView() {
     return Container(
+      color: themeConfig.fillBody,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -244,7 +250,7 @@ class _IntroducePageState extends State<IntroducePage>
                   child: Row(
                     children: [
                       Image(
-                        image: AssetImage('./statics/images/aaa.png'),
+                        image: AssetImage('./statics/images/m18.jpeg'),
                         fit: BoxFit.fill,
                         width: 70,
                         height: 70,
@@ -266,12 +272,35 @@ class _IntroducePageState extends State<IntroducePage>
                     });
                   },
                   child: Text(
-                    '返回上一步',
+                    '返回选择',
                     style: TextStyle(color: Colors.white),
                   ),
                   style: ButtonStyle(
                       backgroundColor:
                           MaterialStateProperty.all(themeConfig.brandPrimary)),
+                )
+              ],
+            ),
+          ),
+          Container(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Container(
+                  padding: EdgeInsets.only(left: 12, right: 12, top: 20),
+                  child: Text(
+                    '车辆信息',
+                    style: TextStyle(
+                        color: themeConfig.colorTextBase,
+                        fontSize: 16,
+                        fontWeight: FontWeight.bold),
+                  ),
+                ),
+                BrnTextInputFormItem(
+                  backgroundColor: themeConfig.fillBody,
+                  title: "车辆VIN",
+                  isEdit: false,
+                  controller: TextEditingController(text: 'N9011050'),
                 )
               ],
             ),

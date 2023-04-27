@@ -1,5 +1,7 @@
 import 'package:bruno/bruno.dart';
+import 'package:dftc_acquisition/components/delegate/picker_delegate.dart';
 import 'package:dftc_acquisition/pages/scene/scene_particulars.dart';
+import 'package:dftc_acquisition/utils/ssi_logger.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
@@ -26,7 +28,19 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   // 事件处理
   showSelectItemPickerView(_PickerType type) {
     if (type == _PickerType.vehicle) {
-    } else if (type == _PickerType.inquiry) {}
+    } else if (type == _PickerType.inquiry) {
+      BrnMultiDataPicker(
+        context: context,
+        title: '调查类型',
+        delegate: SingleTextRowDelegate(textList: ['体验评价', '故障问题录入']),
+        confirmClick: (list) {
+          var arr = list.map((e) => e as int);
+          var index = arr.first;
+          var text = ['体验评价', '故障问题录入'][index];
+          logic.updateInquiryText(text);
+        },
+      ).show();
+    }
   }
 
   @override
@@ -36,33 +50,24 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
         title: Text('问卷'),
       ),
       body: ListView(
-        children: [
-          Padding(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            child: _vehicleTitle(),
-          ),
-          Padding(
-            padding: EdgeInsets.only(left: 10, right: 10),
-            child: _vehicleInfoView(),
-          ),
-          Padding(
-              padding: EdgeInsets.only(left: 10, right: 10),
-              child: _plateNumber()),
-          Padding(
-              padding: EdgeInsets.only(left: 10, right: 10),
-              child: _typeInquiryTitle()),
-          Padding(
-              padding: EdgeInsets.only(left: 10, right: 10),
-              child: _typeInquiry()),
-          Padding(
-              padding: EdgeInsets.only(left: 10, right: 10),
-              child: _vehicleScene()),
-          Padding(
-              padding: EdgeInsets.only(left: 10, right: 10), child: _scene()),
-          Padding(
-              padding: EdgeInsets.only(left: 10, right: 10), child: _button()),
-        ],
-      ),
+          shrinkWrap: true,
+          children: [
+            Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: _typeInquiryTitle()),
+            Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: _typeInquiry()),
+            Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: _vehicleScene()),
+            Padding(
+                padding: EdgeInsets.only(left: 10, right: 10), child: _scene()),
+            Padding(
+                padding: EdgeInsets.only(left: 10, right: 10),
+                child: _buttonView()),
+          ],
+        ),
     );
   }
 
@@ -110,14 +115,18 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
 
   //车牌号
   Widget _typeInquiry() {
-    return BrnTextSelectFormItem(
-      title: "调查类型",
-      isRequire: true,
-      hint: '请选择',
-      onTap: () {
-        showSelectItemPickerView(_PickerType.vehicle);
-      },
-    );
+    return Obx(() {
+      return BrnTextSelectFormItem(
+        title: "调查类型",
+        isRequire: true,
+        hint: logic.inquiryText.value.isNotEmpty
+            ? logic.inquiryText.value
+            : '请选择',
+        onTap: () {
+          showSelectItemPickerView(_PickerType.inquiry);
+        },
+      );
+    });
   }
 
   //车辆场景
@@ -132,8 +141,9 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     return GetBuilder<QuestionnaireLogic>(builder: (logic) {
       return Container(
         margin: EdgeInsets.symmetric(horizontal: 20, vertical: 20),
-        height: 350,
         child: GridView.builder(
+          shrinkWrap: true,
+            primary: false,
           gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
               mainAxisSpacing: 30,
               crossAxisSpacing: 30,
@@ -162,7 +172,8 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
           children: [
             Positioned(
               child: Image(
-                  image: AssetImage('./statics/images/aaa.png'), fit: BoxFit.fill),
+                  image: AssetImage('./statics/images/aaa.png'),
+                  fit: BoxFit.fill),
               left: 0,
               right: 0,
               top: 0,
@@ -195,7 +206,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
   }
 
   //下一步
-  Widget _button() {
+  Widget _buttonView() {
     return Container(
       height: 66,
       padding: EdgeInsets.symmetric(horizontal: 12, vertical: 8),

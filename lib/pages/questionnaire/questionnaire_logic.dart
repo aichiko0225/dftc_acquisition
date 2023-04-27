@@ -5,6 +5,8 @@ class QuestionnaireLogic extends GetxController {
 
   var selectIndexArr = <int>[];
 
+  var inquiryText = ''.obs;
+
   @override
   void onInit() {
     // TODO: implement onInit
@@ -15,6 +17,10 @@ class QuestionnaireLogic extends GetxController {
       '场景二：接近车辆，进入车内',
       '场景三：酒店出发/小区行驶',
       '场景四：城市驾驶',
+      '场景五：高速驾驶',
+      '场景六：山路/高原驾驶',
+      '场景七：车机系统',
+      '场景八：抵达目的地/离车',
       '体验类问题反馈',
       '故障类问题反馈'
     ];
@@ -31,5 +37,9 @@ class QuestionnaireLogic extends GetxController {
     print(arr);
     selectIndexArr = arr;
     update();
+  }
+
+  updateInquiryText(String text) {
+    inquiryText.value = text;
   }
 }
