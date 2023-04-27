@@ -2,6 +2,8 @@ import 'package:dftc_acquisition/pages/scene/scene_answer.dart';
 import 'package:flutter/material.dart';
 
 class SceneParticulars extends StatefulWidget {
+  const SceneParticulars({super.key});
+
   @override
   State<StatefulWidget> createState() {
     return SceneParticularsOne();
