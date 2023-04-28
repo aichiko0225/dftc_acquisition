@@ -76,35 +76,6 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
     super.dispose();
   }
 
-  //车辆信息
-  Widget _vehicleTitle() {
-    return BrnCommonCardTitle(
-      title: '车辆信息',
-      accessoryWidget: Icon(Icons.qr_code_scanner_outlined),
-    );
-  }
-
-  //车辆型号
-  Widget _vehicleInfoView() {
-    return BrnTextSelectFormItem(
-      title: "车辆型号",
-      isRequire: true,
-      hint: "请选择",
-      onTap: () {
-        showSelectItemPickerView(_PickerType.vehicle);
-      },
-    );
-  }
-
-  //车牌号
-  Widget _plateNumber() {
-    return BrnTextInputFormItem(
-      title: "车牌号",
-      isRequire: true,
-      hint: "请输入车牌号",
-    );
-  }
-
   //调查类型
   Widget _typeInquiryTitle() {
     return BrnCommonCardTitle(
