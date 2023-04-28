@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
+import '../../routes/routes.dart';
 import 'questionnaire_logic.dart';
 
 enum _PickerType { vehicle, inquiry }
@@ -186,6 +187,7 @@ class _QuestionnairePageState extends State<QuestionnairePage> {
             backgroundColor: MaterialStateProperty.all(Colors.blue),
             foregroundColor: MaterialStateProperty.all(Colors.white)),
         onPressed: () {
+          Get.toNamed(Routes.evaluation_details);
         },
       ),
     );
