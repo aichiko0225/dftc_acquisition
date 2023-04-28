@@ -8,6 +8,8 @@ import '../../config/extensions.dart';
 import 'evaluation_details_logic.dart';
 
 class EvaluationDetailsPage extends StatefulWidget {
+  const EvaluationDetailsPage({super.key});
+
   @override
   State<EvaluationDetailsPage> createState() => _EvaluationDetailsPageState();
 }
