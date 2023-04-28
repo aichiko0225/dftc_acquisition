@@ -27,7 +27,7 @@ class _EvaluationDetailsPageState extends State<EvaluationDetailsPage> {
         actions: [
           IconButton(
               onPressed: () {
-                BrnToast.show('显示评价回答情况', context);
+                showDialog(context: context, builder: (_) => _buildDialog());
               },
               icon: Icon(Icons.menu_outlined))
         ],
@@ -83,6 +83,45 @@ class _EvaluationDetailsPageState extends State<EvaluationDetailsPage> {
     );
   }
 
+  //弹窗
+  Widget _buildDialog() {
+    return AlertDialog(
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10))),
+      title: Text('场景一'),
+      titleTextStyle: TextStyle(fontSize: 20, color: Colors.black),
+      titlePadding: EdgeInsets.only(top: 5, left: 20),
+      contentPadding: EdgeInsets.symmetric(horizontal: 5),
+      backgroundColor: Colors.white,
+      content: _aaa(context),
+      actions: [
+        TextButton(
+          child: Text("提交"),
+          style: ButtonStyle(
+              backgroundColor: MaterialStateProperty.all(Colors.blue),
+              foregroundColor: MaterialStateProperty.all(Colors.white)),
+          onPressed: () {},
+        ),
+      ],
+    );
+  }
+
+  //
+  Widget _aaa(BuildContext context) {
+    return Wrap(
+      spacing: 5,
+      runSpacing: 5,
+      alignment: WrapAlignment.center,
+      children: <Widget>[
+        Chip(label: Text('1')),
+        Chip(label: Text('2')),
+        Chip(label: Text('3')),
+        Chip(label: Text('4')),
+        Chip(label: Text('5')),
+      ],
+    );
+  }
+
+  //
   @override
   void dispose() {
     Get.delete<EvaluationDetailsLogic>();
