@@ -18,7 +18,18 @@ class Assets {
   static const String assetsImagesIconPlay = 'statics/assets/images/icon_play_.png';
   static const String componentsIcDeleteGrey = 'statics/assets/components/ic_delete_grey.png';
   static const String componentsIcSearch = 'statics/assets/components/ic_search.png';
+  static const String componentsIntroduceComponents = 'lib/pages/introduce/components/introduce_components.dart';
+  static const String componentsScoreSelect = 'lib/components/score_select.dart';
+  static const String componentsVerifyCodeSend = 'lib/components/verify_code_send.dart';
+  static const String configExtensions = 'lib/config/extensions.dart';
+  static const String configThemeConfig = 'lib/config/theme_config.dart';
   static const String dataChina = 'statics/assets/data/china.json';
+  static const String delegatePickerDelegate = 'lib/components/delegate/picker_delegate.dart';
+  static const String evaluationDetailsEvaluationDetailsLogic = 'lib/pages/evaluation_details/evaluation_details_logic.dart';
+  static const String evaluationDetailsEvaluationDetailsView = 'lib/pages/evaluation_details/evaluation_details_view.dart';
+  static const String evaluationDetailsEvaluationtForms = 'lib/pages/evaluation_details/evaluationt_forms.dart';
+  static const String evaluationDetailsSceneAnswer = 'lib/pages/evaluation_details/scene_answer.dart';
+  static const String evaluationDetailsSceneParticulars = 'lib/pages/evaluation_details/scene_particulars.dart';
   static const String exampleImagesArrowUp = 'statics/assets/example_images/arrow_up.png';
   static const String exampleImagesEmptyState = 'statics/assets/example_images/empty_state.png';
   static const String exampleImagesIconClearGrey = 'statics/assets/example_images/icon_clear_grey.png';
@@ -44,9 +55,19 @@ class Assets {
   static const String exampleImagesIconToastSuccess = 'statics/assets/example_images/icon_toast_success.png';
   static const String exampleImagesIconTriangle = 'statics/assets/example_images/icon_triangle.png';
   static const String exampleImagesImageStickyBg = 'statics/assets/example_images/image_sticky_bg.jpg';
+  static const String generatedAssets = 'lib/generated/assets.dart';
+  static const String homeHomeLogic = 'lib/pages/home/home_logic.dart';
+  static const String homeHomeView = 'lib/pages/home/home_view.dart';
   static const String html1 = 'statics/html/1.html';
   static const String html2 = 'statics/html/2.html';
   static const String htmlTemplate = 'statics/html/template.html';
+  static const String imagePickerImagePickerController = 'lib/components/image_picker/image_picker_controller.dart';
+  static const String imagePickerImagePickerView = 'lib/components/image_picker/image_picker_view.dart';
+  static const String imagePickerImageVideoPicker = 'lib/components/image_picker/image_video_picker.dart';
+  static const String imagePickerMediaFile = 'lib/components/image_picker/media_file.dart';
+  static const String imagePickerMediaPickerInterface = 'lib/components/image_picker/media_picker_interface.dart';
+  static const String imagePickerVideoPickerController = 'lib/components/image_picker/video_picker_controller.dart';
+  static const String imagePickerVideoPickerView = 'lib/components/image_picker/video_picker_view.dart';
   static const String imagesAaa = 'statics/images/aaa.png';
   static const String imagesAirplaneBlue = 'statics/assets/images/airplane_blue.png';
   static const String imagesAirplaneWhite = 'statics/assets/images/airplane_white.png';
@@ -74,6 +95,7 @@ class Assets {
   static const String imagesBootxAppLinePersonalDetails2 = 'statics/assets/images/bootxApp_line_personal_details2.png';
   static const String imagesBootxAppLinePersonalQrCode2 = 'statics/assets/images/bootxApp_line_personal_QrCode2.png';
   static const String imagesBootxAppLineToolkitManagement = 'statics/assets/images/bootxApp_line_toolkit_management.png';
+  static const String imagesBootxAppLineToolkitSearch = 'statics/assets/images/bootxApp_line_toolkit_search.png';
   static const String imagesBordCode = 'statics/assets/images/bord_code.png';
   static const String imagesCallMe = 'statics/assets/images/call_me.png';
   static const String imagesChange = 'statics/assets/images/change.png';
@@ -150,7 +172,22 @@ class Assets {
   static const String imagesVersionUpdate = 'statics/assets/images/version_update.png';
   static const String imagesWechat = 'statics/assets/images/wechat.png';
   static const String imagesWinfoCon = 'statics/assets/images/winfo_con.png';
+  static const String introduceIntroduceLogic = 'lib/pages/introduce/introduce_logic.dart';
+  static const String introduceIntroducePage = 'lib/pages/introduce/introduce_page.dart';
+  static const String launchLaunchLogic = 'lib/pages/launch/launch_logic.dart';
+  static const String launchLaunchPage = 'lib/pages/launch/launch_page.dart';
+  static const String libMain = 'lib/main.dart';
+  static const String loginLoginCheckout = 'lib/pages/login/login_checkout.dart';
+  static const String loginLoginLogic = 'lib/pages/login/login_logic.dart';
+  static const String loginLoginView = 'lib/pages/login/login_view.dart';
+  static const String modelsTabbarItem = 'lib/models/tabbar_item.dart';
+  static const String pagesWebviewPage = 'lib/pages/webview_page.dart';
+  static const String questionnaireQuestionnaireLogic = 'lib/pages/questionnaire/questionnaire_logic.dart';
+  static const String questionnaireQuestionnaireView = 'lib/pages/questionnaire/questionnaire_view.dart';
   static const String regionCity = 'statics/assets/region/city.json';
+  static const String routesRoutes = 'lib/routes/routes.dart';
+  static const String statesAppState = 'lib/states/app_state.dart';
+  static const String statesApplication = 'lib/states/application.dart';
   static const String tabbarBootxAppColourfulTabComponentSelected2 = 'statics/assets/tabbar/bootxApp_colourful_tab_component_Selected2.png';
   static const String tabbarBootxAppColourfulTabHomeSelected2 = 'statics/assets/tabbar/bootxApp_colourful_tab_home_Selected2.png';
   static const String tabbarBootxAppColourfulTabPersonalSelected2 = 'statics/assets/tabbar/bootxApp_colourful_tab_personal_Selected2.png';
@@ -169,5 +206,7 @@ class Assets {
   static const String tabbarTabbarItemMineS = 'statics/assets/tabbar/tabbar_item_mine_s.png';
   static const String tabbarTabbarStatistics = 'statics/assets/tabbar/tabbar_statistics.png';
   static const String tabbarTabbarStatisticsActive = 'statics/assets/tabbar/tabbar_statistics_active.png';
+  static const String tabbarTabbarView = 'lib/pages/tabbar/tabbar_view.dart';
+  static const String utilsSsiLogger = 'lib/utils/ssi_logger.dart';
 
 }

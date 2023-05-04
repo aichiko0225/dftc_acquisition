@@ -16,4 +16,8 @@ class Application {
     return _state;
   }
 
+  setRememberPassword(bool rem) {
+    _state.setRememberPassword(rem);
+  }
+
 }

@@ -43,7 +43,7 @@ class SsiApp extends StatelessWidget {
     return GetMaterialApp(
         debugShowCheckedModeBanner: false,
         navigatorKey: _navigatorKey,
-        initialRoute: Routes.m18_introduce,
+        initialRoute: Routes.launch,
         getPages: Routes.getPages,
         routes: Routes.routesMap,
         builder: (context, widget) {

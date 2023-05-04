@@ -1,12 +1,15 @@
+import 'package:bruno/bruno.dart';
 import 'package:dftc_acquisition/config/extensions.dart';
+import 'package:dftc_acquisition/generated/assets.dart';
 import 'package:dftc_acquisition/states/application.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_easyloading/flutter_easyloading.dart';
 import 'package:get/get.dart';
 
-import '../../components/verify_code_send.dart';
 import '../../config/theme_config.dart';
 import '../../routes/routes.dart';
+import 'login_checkout.dart';
 import 'login_logic.dart';
 
 class LoginPage extends StatefulWidget {
@@ -18,11 +21,13 @@ class _LoginPageState extends State<LoginPage> {
   final logic = Get.put(LoginLogic());
   final theme = Get.find<ThemeConfig>();
 
-  TextEditingController _loginPhoneNumbController = TextEditingController();
-  TextEditingController _loginPhoneCodeController = TextEditingController();
+  //焦点
+  final FocusNode _focusNodeUserName = FocusNode();
+  final FocusNode _focusNodePassWord = FocusNode();
 
-  final FocusNode _focusNodePhoneNumber = FocusNode();
-  final FocusNode _focusNodePhoneCode = FocusNode();
+  //用户名输入框控制器，此控制器可以监听用户名输入框操作
+  final TextEditingController _userNameController = TextEditingController();
+  final TextEditingController _pwdController = TextEditingController();
 
   @override
   void initState() {
@@ -30,28 +35,65 @@ class _LoginPageState extends State<LoginPage> {
     super.initState();
 
     //设置焦点监听
-    _focusNodePhoneNumber.addListener(_focusNodeListener);
-    _focusNodePhoneCode.addListener(_focusNodeListener);
+    _focusNodeUserName.addListener(_focusNodeListener);
+    _focusNodePassWord.addListener(_focusNodeListener);
 
     //监听用户名框的输入改变
-    _loginPhoneNumbController.addListener(() {
-      logic.updatePhoneNum(_loginPhoneNumbController.text);
-      // 监听文本框输入变化，当有内容的时候，显示尾部清除按钮，否则不显示
+    _userNameController.addListener(() {
+      logic.updatePhoneNum(_userNameController.text);
     });
+    _pwdController.addListener(() {
+      logic.updatePassword(_pwdController.text);
+    });
+
+    initData();
+  }
+
+  initData() async {
+    var userName = Application.shared.appState.userName;
+    var password = Application.shared.appState.password;
+    var rememberPassword = Application.shared.appState.rememberPassword;
+    if (userName.isNotEmpty) {
+      _userNameController.text = userName;
+    }
+    if (password.isNotEmpty) {
+      _pwdController.text = password;
+    }
+    logic.rememberPwd.value = rememberPassword;
   }
 
   // 监听焦点
   Future<void> _focusNodeListener() async {
-    if (_focusNodePhoneNumber.hasFocus) {
+    if (_focusNodeUserName.hasFocus) {
       print("用户名框获取焦点");
       // 取消密码框的焦点状态
-      _focusNodePhoneCode.unfocus();
+      _focusNodePassWord.unfocus();
     }
-    if (_focusNodePhoneCode.hasFocus) {
+    if (_focusNodePassWord.hasFocus) {
       print("密码框获取焦点");
       // 取消用户名框焦点状态
-      _focusNodePhoneNumber.unfocus();
+      _focusNodeUserName.unfocus();
     }
+  }
+
+  void _onLoginButtonTap() async {
+    //点击登录按钮，解除焦点，回收键盘
+    _focusNodePassWord.unfocus();
+    _focusNodeUserName.unfocus();
+    // 默认存用户名，如果选择记住密码，则用户名和密码都会存储
+    if (logic.rememberPwd.value) {
+      Application.shared.appState
+          .loginSuccess("token", userName: logic.userName, password: logic.password);
+    } else {
+      Application.shared.appState
+          .loginSuccess("token", userName: logic.userName);
+    }
+
+    EasyLoading.show();
+    Future.delayed(const Duration(milliseconds: 1000), () {
+      EasyLoading.dismiss();
+      Get.offNamed(Routes.root);
+    });
   }
 
   @override
@@ -63,10 +105,17 @@ class _LoginPageState extends State<LoginPage> {
           style: DFTextStyle.titleStyle,
         ),
       ),
-      body: Container(
-        color: theme.fillBase,
-        child: Column(
-          children: [_buildLoginView(), _buildLoginBottonsView()],
+      body: GestureDetector(
+        onTap: () {
+          // 点击空白区域，回收键盘
+          _focusNodePassWord.unfocus();
+          _focusNodeUserName.unfocus();
+        },
+        child: Container(
+          color: theme.fillBase,
+          child: Column(
+            children: [_buildLoginView(), _buildLoginBottonsView()],
+          ),
         ),
       ),
     );
@@ -77,78 +126,142 @@ class _LoginPageState extends State<LoginPage> {
       padding: EdgeInsets.only(top: 20, left: 12, right: 12),
       child: Column(
         children: [
+          _inputTextArea(),
+        ],
+      ),
+    );
+  }
+
+  //输入文本框区域
+  Widget _inputTextArea() {
+    return SizedBox(
+      height: 206.0,
+      child: Column(
+        children: <Widget>[
           Container(
-            child: Text('请输入您的手机号码，登录或注册您的账号'),
-            alignment: Alignment.centerLeft,
-            padding: EdgeInsets.symmetric(horizontal: 8, vertical: 20),
-          ),
-          Container(
-            padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+            margin: const EdgeInsets.only(top: 14),
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+            height: 50,
             child: TextField(
-              focusNode: _focusNodePhoneNumber,
-              controller: _loginPhoneNumbController,
-              keyboardType: TextInputType.phone,
-              inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-              maxLength: 11,
+              focusNode: _focusNodeUserName,
+              controller: _userNameController,
+              keyboardType: TextInputType.text,
               style: TextStyle(
-                fontSize: 16.0,
+                fontSize: 14.0,
                 color: theme.colorTextBase,
               ),
               decoration: InputDecoration(
                 contentPadding: EdgeInsets.only(left: -6),
-                counterText: '',
                 border: InputBorder.none,
-                icon: const Image(
-                  image: AssetImage("./statics/assets/images/icon_phone.png"),
+                icon: Image(
+                  image: AssetImage(Assets.imagesIconPhone),
                   width: 20,
                   height: 20,
                 ),
-                hintText: "请输入手机号",
+                hintText: "请输入用户名/手机号",
                 hintStyle:
-                    TextStyle(fontSize: 16.0, color: theme.colorTextSecondary),
+                    TextStyle(fontSize: 14.0, color: theme.colorTextSecondary),
               ),
             ),
           ),
           Container(
-            padding: const EdgeInsets.only(left: 12.0, right: 12.0),
+            margin: const EdgeInsets.only(left: 15, right: 15),
+            height: 0.75,
+            color: Color(0xFFD8D8D8),
+          ),
+          Container(
+            margin: const EdgeInsets.only(top: 14),
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+            height: 50,
             child: Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
                   Expanded(
-                    child: TextField(
-                      focusNode: _focusNodePhoneCode,
-                      controller: _loginPhoneCodeController,
-                      keyboardType: TextInputType.number,
-                      inputFormatters: [FilteringTextInputFormatter.digitsOnly],
-                      maxLength: 6,
-                      style: TextStyle(
-                        fontSize: 16.0,
-                        color: theme.colorTextBase,
-                      ),
-                      decoration: InputDecoration(
-                        contentPadding: EdgeInsets.only(left: -6),
-                        counterText: '',
-                        border: InputBorder.none,
-                        icon: const Image(
-                          image: AssetImage(
-                              "./statics/assets/images/icon_verification.png"),
-                          width: 20,
-                          height: 20,
+                    child: Obx(() {
+                      return TextField(
+                        focusNode: _focusNodePassWord,
+                        controller: _pwdController,
+                        keyboardType: TextInputType.text,
+                        style: TextStyle(
+                          fontSize: 14.0,
+                          color: theme.colorTextBase,
                         ),
-                        hintStyle: TextStyle(
-                          fontSize: 16.0,
-                          color: theme.colorTextSecondary,
+                        decoration: InputDecoration(
+                          border: InputBorder.none,
+                          contentPadding: EdgeInsets.only(left: -6),
+                          icon: const Image(
+                            image: AssetImage(Assets.imagesIconLocker),
+                            width: 20,
+                            height: 20,
+                          ),
+                          hintStyle: TextStyle(
+                            fontSize: 14.0,
+                            color: theme.colorTextSecondary,
+                          ),
+                          hintText: "请输入您的密码",
                         ),
-                        hintText: "请输入验证码",
-                      ),
-                    ),
+                        obscureText: !logic.showPwd.value,
+                      );
+                    }),
                   ),
                   Obx(() {
-                    return VerifyCodeSend(
-                        onTapCallback: () {}, available: logic.available.value);
+                    return IconButton(
+                      icon: Icon((logic.showPwd.value)
+                          ? Icons.visibility
+                          : Icons.visibility_off),
+                      // 点击改变显示或隐藏密码
+                      onPressed: () {
+                        logic.updateShowPassword(!logic.showPwd.value);
+                      },
+                    );
                   }),
                 ]),
           ),
+          Container(
+            margin: const EdgeInsets.only(left: 15, right: 15),
+            height: 0.75,
+            color: Color(0xFFD8D8D8),
+          ),
+          _bottomArea(),
+        ],
+      ),
+    );
+  }
+
+  //忘记密码  立即注册
+  Widget _bottomArea() {
+    return Container(
+      margin: const EdgeInsets.only(right: 15, left: 15, top: 16),
+      child: Row(
+        mainAxisSize: MainAxisSize.max,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: <Widget>[
+          Obx(() {
+            return LoginCheckbox(
+              iconPadding:
+                  EdgeInsets.only(right: 12, left: 5, top: 5, bottom: 5),
+              isSelected: logic.rememberPwd.value,
+              onValueChangedAtIndex: (selected) async {
+                logic.rememberPwd.value = selected;
+                Application.shared.setRememberPassword(selected);
+              },
+              child: Text("记住密码",
+                  style: TextStyle(
+                    color: theme.colorTextBase,
+                    fontSize: 14.0,
+                  )),
+            );
+          }),
+          TextButton(
+            onPressed: () {
+              BrnToast.showInCenter(text: "立即注册", context: context);
+            },
+            child: Text('立即注册',
+                style: TextStyle(
+                  color: theme.colorTextBase,
+                  fontSize: 14.0,
+                )),
+          )
         ],
       ),
     );
@@ -157,36 +270,38 @@ class _LoginPageState extends State<LoginPage> {
   Widget _buildLoginBottonsView() {
     return Container(
       width: double.infinity,
-      margin: const EdgeInsets.only(left: 20, right: 20, top: 50),
+      margin: const EdgeInsets.only(left: 20, right: 20, top: 30),
       height: 46.0,
-      child: TextButton(
-          style: ButtonStyle(
-              backgroundColor: MaterialStateProperty.all(theme.brandPrimary),
-              textStyle: MaterialStateProperty.all(TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold))),
-          onPressed: () async {
-            //点击登录按钮，解除焦点，回收键盘
-            Application.shared.appState
-                .loginSuccess("token", phoneNum: logic.phoneNum);
-            Get.offNamed(Routes.root);
-          },
-          child: Text("登录",
-              style: TextStyle(
-                  color: Colors.white,
-                  fontSize: 16,
-                  fontWeight: FontWeight.bold))),
+      child: Obx(() {
+        return TextButton(
+            style: ButtonStyle(
+                backgroundColor: MaterialStateProperty.resolveWith((states) {
+                  if (states.contains(MaterialState.disabled)) {
+                    return theme.brandPrimary?.withAlpha(88);
+                  }
+                  return theme.brandPrimary;
+                }),
+                textStyle: MaterialStateProperty.all(TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold))),
+            onPressed: logic.available.value ? _onLoginButtonTap : null,
+            child: Text("登录",
+                style: TextStyle(
+                    color: Colors.white,
+                    fontSize: 16,
+                    fontWeight: FontWeight.bold)));
+      }),
     );
   }
 
   @override
   void dispose() {
     Get.delete<LoginLogic>();
-    _focusNodePhoneNumber.removeListener(_focusNodeListener);
-    _focusNodePhoneCode.removeListener(_focusNodeListener);
-    _loginPhoneNumbController.dispose();
-    _loginPhoneCodeController.dispose();
+    _focusNodeUserName.removeListener(_focusNodeListener);
+    _focusNodePassWord.removeListener(_focusNodeListener);
+    _userNameController.dispose();
+    _pwdController.dispose();
     super.dispose();
   }
 }

@@ -36,6 +36,7 @@ class _EvaluationtFormsState extends State<EvaluationtForms> {
             maxLength: 100,
             padding: EdgeInsets.only(left: 20, right: 20, top: 8),
             maxHeight: 100,
+            autoFocus: false,
           ),
           _spaceView(),
           BrnTitleFormItem(title: '描述（图片）',),

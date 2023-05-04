@@ -3,7 +3,7 @@ import 'package:dftc_acquisition/config/theme_config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../../../routes/routes.dart';
+import '../../../../routes/routes.dart';
 
 class EvaluateView extends StatefulWidget {
 

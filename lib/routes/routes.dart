@@ -1,7 +1,7 @@
 import 'package:dftc_acquisition/pages/evaluation_details/evaluation_details_view.dart';
 import 'package:dftc_acquisition/pages/launch/launch_page.dart';
 import 'package:dftc_acquisition/pages/login/login_view.dart';
-import 'package:dftc_acquisition/pages/questionnaire/introduce/introduce_page.dart' as M18;
+import 'package:dftc_acquisition/pages/introduce/introduce_page.dart' as M18;
 import 'package:dftc_acquisition/pages/questionnaire/questionnaire_view.dart';
 import 'package:dftc_acquisition/pages/tabbar/tabbar_view.dart';
 import 'package:dftc_acquisition/pages/webview_page.dart';
@@ -29,6 +29,10 @@ class Routes {
 
   /// 登录页面
   static String login = '/login';
+
+  /// 注册页面
+  static String register = '/register';
+
 
   /// 选择车辆
   /// arguments 示例 { "showType": 0, "title": "导航栏标题" }

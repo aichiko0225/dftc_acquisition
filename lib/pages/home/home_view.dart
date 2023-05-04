@@ -35,7 +35,7 @@ class _HomePageState extends State<HomePage> {
       children: [
         TextButton.icon(
             onPressed: () {
-              Get.toNamed(Routes.questionnaire);
+              Get.toNamed(Routes.m18_introduce);
               // Navigator.of(context).pushNamed(Routes.questionnaire);
             },
             icon: Icon(Icons.access_alarms),

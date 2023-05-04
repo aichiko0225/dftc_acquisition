@@ -1,12 +1,12 @@
 import 'package:bruno/bruno.dart';
 import 'package:dftc_acquisition/config/extensions.dart';
-import 'package:dftc_acquisition/pages/questionnaire/introduce/introduce_components.dart';
-import 'package:dftc_acquisition/pages/questionnaire/introduce/introduce_logic.dart';
 import 'package:dftc_acquisition/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../../config/theme_config.dart';
+import 'components/introduce_components.dart';
+import 'introduce_logic.dart';
 
 // M18 拉练页面介绍页面
 class IntroducePage extends StatefulWidget {

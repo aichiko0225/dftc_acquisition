@@ -8,6 +8,7 @@ import './media_file.dart';
 
 // 添加图片或者视频的视图
 class VideoPickerView extends StatefulWidget {
+
   VideoPickerController controller;
   // 暂时图片或者视频时，不显示添加按钮
   bool showAddMoreButton;
