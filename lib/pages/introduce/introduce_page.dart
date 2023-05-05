@@ -1,6 +1,6 @@
 import 'package:bruno/bruno.dart';
 import 'package:dftc_acquisition/config/extensions.dart';
-import 'package:dftc_acquisition/routes/routes.dart';
+import 'package:dftc_acquisition/pages/introduce/components/config.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -54,6 +54,7 @@ class _IntroducePageState extends State<IntroducePage>
           _tabbarView(),
           Expanded(
             child: PageView(
+              physics: ClampingScrollPhysics(),
               controller: _pageController,
               onPageChanged: (index) {
                 _tabController.index = index;
@@ -64,9 +65,7 @@ class _IntroducePageState extends State<IntroducePage>
                 Container(
                   color: Colors.green,
                 ),
-                Container(
-                  color: Colors.purple,
-                ),
+                IntroduceConfigView()
               ],
             ),
           )
@@ -80,7 +79,6 @@ class _IntroducePageState extends State<IntroducePage>
     return BusinessIntroduceView(themeConfig: themeConfig);
   }
 
-  //
   Widget _tabbarView() {
     return BrnTabBar(
       controller: _tabController,

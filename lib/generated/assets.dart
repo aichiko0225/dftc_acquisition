@@ -16,6 +16,7 @@ class Assets {
   static const String animationTeacherMessageVideo = 'statics/assets/animation/teacher_message_video.png';
   static const String animationXiayu = 'statics/assets/animation/xiayu.gif';
   static const String assetsImagesIconPlay = 'statics/assets/images/icon_play_.png';
+  static const String componentsConfig = 'lib/pages/introduce/components/config.dart';
   static const String componentsIcDeleteGrey = 'statics/assets/components/ic_delete_grey.png';
   static const String componentsIcSearch = 'statics/assets/components/ic_search.png';
   static const String componentsIntroduceComponents = 'lib/pages/introduce/components/introduce_components.dart';
