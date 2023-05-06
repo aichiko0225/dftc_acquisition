@@ -63,7 +63,7 @@ class _IntroducePageState extends State<IntroducePage>
                 _businessIntroView(),
                 _evaluateView(),
                 Container(
-                  color: Colors.green,
+                  color: Colors.orange,
                 ),
                 IntroduceConfigView()
               ],

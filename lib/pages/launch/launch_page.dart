@@ -30,11 +30,11 @@ class _LaunchPageState extends State<LaunchPage> {
       var isLogin = Application.shared.appState.isLogin();
       if (isLogin) {
         Future.delayed(const Duration(milliseconds: 1000), () {
-          Get.offNamed(Routes.root);
+          Get.offAllNamed(Routes.root);
         });
       } else {
         Future.delayed(const Duration(milliseconds: 1000), () {
-          Get.offNamed(Routes.login);
+          Get.offAllNamed(Routes.login);
         });
       }
     }

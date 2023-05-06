@@ -23,7 +23,7 @@ class LaunchLogic extends GetxController {
     SsiLogger.d('同意并继续');
     setPrivacyAgreeStatus(true);
     // 分开处理，可能会有差异
-    Get.offNamed(Routes.login);
+    Get.offAllNamed(Routes.login);
   }
 
   void notAgreeOnPressed() {

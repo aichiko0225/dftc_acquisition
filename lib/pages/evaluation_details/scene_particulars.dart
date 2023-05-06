@@ -1,23 +1,22 @@
 
 import 'package:flutter/material.dart';
 
+// 场景提示弹框
 class SceneParticularsPage extends StatefulWidget {
   const SceneParticularsPage({super.key});
 
   @override
   State<StatefulWidget> createState() {
-    return SceneParticularsOne();
+    return _SceneParticularsState();
   }
 }
 
-class SceneParticularsOne extends State<SceneParticularsPage> {
+class _SceneParticularsState extends State<SceneParticularsPage> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-        appBar: AppBar(
-          title: Text("详情"),
-        ),
-        body: Column(
+    return Container(
+      color: Colors.white,
+        child: Column(
           children: [
             _sceneTitle(),
             _sceneList(),

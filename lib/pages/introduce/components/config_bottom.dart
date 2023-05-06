@@ -4,34 +4,22 @@ import 'package:get/get.dart';
 
 import '../../../config/theme_config.dart';
 
-class ConfigItemProperty {
-  String? name;
-  int type;
-
-  ConfigItemProperty({this.name, this.type = 0});
-
-  static ConfigItemProperty defalutProperty() {
-    return ConfigItemProperty();
-  }
-}
-
-class ConfigItem {
+class ConfigItemModel {
   String name;
-  String? desc;
+  // 1：文本，2：图片，3：语音，4：视频
+  int type;
+  String? value;
 
-  List<ConfigItemProperty> propArray;
-
-  ConfigItem(this.name, {required this.propArray, this.desc});
+  ConfigItemModel({required this.name, this.type = 1, this.value});
 }
 
 class ConfigBottomView extends StatefulWidget {
   BuildContext parentContext;
 
-  ConfigBottomView({super.key, required this.parentContext});
+  final bool add;
 
-  static ConfigBottomView buildWidget(BuildContext context) {
-    return ConfigBottomView(parentContext: context);
-  }
+  ConfigBottomView({super.key, required this.parentContext, this.add = false});
+
 
   @override
   State<StatefulWidget> createState() {
@@ -41,12 +29,10 @@ class ConfigBottomView extends StatefulWidget {
 
 class _ConfigBottomViewState extends State<ConfigBottomView>
     with SingleTickerProviderStateMixin {
-  final PageController _pageController = PageController();
+
   final themeConfig = Get.find<ThemeConfig>();
 
-  var currentPage = 0;
-
-  ConfigItem? addItem;
+  ConfigItemModel? configItem;
 
   @override
   void initState() {
@@ -54,17 +40,7 @@ class _ConfigBottomViewState extends State<ConfigBottomView>
     super.initState();
   }
 
-  _addConfigProperty() {
-    if (addItem != null) {
-      var propArr = addItem?.propArray ?? [];
-      propArr.add(ConfigItemProperty.defalutProperty());
-      var _addItem = addItem!;
-      _addItem.propArray = propArr;
-      setState(() {
-        addItem = _addItem;
-      });
-    }
-  }
+  _addConfigProperty() {}
 
   @override
   Widget build(BuildContext context) {
@@ -81,13 +57,10 @@ class _ConfigBottomViewState extends State<ConfigBottomView>
               title: '我的配置',
             ),
             Expanded(
-              child: Container(
-                  child: PageView(
-                controller: _pageController,
-                physics: NeverScrollableScrollPhysics(),
-                children: [_configItemsListView(), _addConfigItemsView()],
-              )),
-            ),
+                child: Container(
+                    child: widget.add
+                        ? _addConfigItemsView()
+                        : _configItemsListView())),
             _buttonsView()
           ],
         ),
@@ -119,10 +92,7 @@ class _ConfigBottomViewState extends State<ConfigBottomView>
   }
 
   Widget _addConfigItemsView() {
-    var propsArr = addItem?.propArray ?? [];
-
-    // var widgetArr = <Widget>[];
-
+    var propsArr = [];
     var widgetArr = propsArr.map((e) {
       var index = propsArr.indexOf(e);
       var arr = index > 0
@@ -196,7 +166,7 @@ class _ConfigBottomViewState extends State<ConfigBottomView>
       {double? height = 1,
       double? indent = 15,
       double? endIndent = 15,
-      Color? color = const Color(0xFFD8D8D8)}) {
+      Color? color = const Color(0xFFF0F0F0)}) {
     return Divider(
       height: height,
       indent: indent,
@@ -230,7 +200,7 @@ class _ConfigBottomViewState extends State<ConfigBottomView>
 
   Widget _buttonsView() {
     var s_width = (context.width - 24 - 12) / 3;
-    if (currentPage == 1) {
+    if (widget.add) {
       return Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12.0),
           child: Row(
@@ -242,10 +212,7 @@ class _ConfigBottomViewState extends State<ConfigBottomView>
                   width: s_width,
                   title: '取消',
                   onTap: () {
-                    _pageController.jumpToPage(0);
-                    setState(() {
-                      currentPage = 0;
-                    });
+
                   },
                 ),
               ),
@@ -265,15 +232,7 @@ class _ConfigBottomViewState extends State<ConfigBottomView>
       padding: const EdgeInsets.symmetric(horizontal: 12.0),
       child: BrnBigMainButton(
         title: '添加配置',
-        onTap: () {
-          BrnToast.show('添加配置', context, verticalOffset: 200);
-          _pageController.jumpToPage(1);
-          setState(() {
-            currentPage = 1;
-            addItem = ConfigItem('',
-                propArray: [ConfigItemProperty.defalutProperty()]);
-          });
-        },
+        onTap: () {},
       ),
     );
   }

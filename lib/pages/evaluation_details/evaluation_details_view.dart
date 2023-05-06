@@ -1,6 +1,7 @@
 import 'package:bruno/bruno.dart';
 import 'package:dftc_acquisition/config/theme_config.dart';
 import 'package:dftc_acquisition/pages/evaluation_details/evaluationt_forms.dart';
+import 'package:dftc_acquisition/pages/evaluation_details/scene_particulars.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -17,6 +18,19 @@ class EvaluationDetailsPage extends StatefulWidget {
 class _EvaluationDetailsPageState extends State<EvaluationDetailsPage> {
   final logic = Get.put(EvaluationDetailsLogic());
   final themeConfig = Get.find<ThemeConfig>();
+
+  @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+
+  }
+
+  _showSceneTipViewDialog() {
+    showDialog(context: context, builder: (context) {
+      return SceneParticularsPage();
+    });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,6 +78,7 @@ class _EvaluationDetailsPageState extends State<EvaluationDetailsPage> {
           InkWell(
               onTap: () {
                 BrnToast.show('显示场景提示', context);
+                _showSceneTipViewDialog();
               },
               child: Container(
                   width: 60, child: Icon(Icons.question_mark_outlined))),
@@ -78,6 +93,7 @@ class _EvaluationDetailsPageState extends State<EvaluationDetailsPage> {
         padding: EdgeInsets.only(top: 20),
         child: PageView.builder(
             itemCount: 5,
+            physics: ClampingScrollPhysics(),
             itemBuilder: (context, index) {
               return EvaluationtForms();
             }),
@@ -123,7 +139,6 @@ class _EvaluationDetailsPageState extends State<EvaluationDetailsPage> {
     );
   }
 
-  //
   @override
   void dispose() {
     Get.delete<EvaluationDetailsLogic>();

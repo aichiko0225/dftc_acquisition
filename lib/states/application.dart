@@ -1,5 +1,8 @@
-import 'package:flutter/material.dart';
 
+import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+
+import '../routes/routes.dart';
 import 'app_state.dart';
 
 /// 全局的单例。用于保存路由栈信息，或者其他全局数据
@@ -18,6 +21,11 @@ class Application {
 
   setRememberPassword(bool rem) {
     _state.setRememberPassword(rem);
+  }
+
+  logout() {
+    _state.logout();
+    Get.offAllNamed(Routes.login);
   }
 
 }

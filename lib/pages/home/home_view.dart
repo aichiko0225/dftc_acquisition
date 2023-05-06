@@ -1,6 +1,8 @@
 import 'package:dftc_acquisition/routes/routes.dart';
+import 'package:dftc_acquisition/states/application.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:bruno/bruno.dart';
 
 import 'home_logic.dart';
 
@@ -19,6 +21,21 @@ class _HomePageState extends State<HomePage> {
     return Scaffold(
       appBar: AppBar(
         title: Text('首页'),
+        actions: [
+          TextButton(onPressed: (){
+            BrnDialogManager.showConfirmDialog(context,
+                cancel: '取消',
+                confirm: '确定',
+                message: "是否确认退出登录",
+                onConfirm: () {
+                  // BrnToast.show("确定", context);
+                  Application.shared.logout();
+                },
+                onCancel: () {
+                  Navigator.pop(context);
+                });
+          }, child: Text('退出登录', style: TextStyle(color: Colors.white),))
+        ],
       ),
       body: Container(
         child: Column(
@@ -39,7 +56,7 @@ class _HomePageState extends State<HomePage> {
               // Navigator.of(context).pushNamed(Routes.questionnaire);
             },
             icon: Icon(Icons.access_alarms),
-            label: Text('调查问卷')),
+            label: Text('M18拉练')),
         TextButton.icon(
             onPressed: () {
               Get.toNamed(Routes.questionnaire);

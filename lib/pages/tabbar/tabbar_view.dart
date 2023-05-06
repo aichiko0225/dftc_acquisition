@@ -3,6 +3,15 @@ import 'package:flutter/material.dart';
 
 import '../../models/tabbar_item.dart';
 
+class MinePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+
+    );
+  }
+}
+
 
 class TabbarPage extends StatefulWidget {
   @override
@@ -22,8 +31,8 @@ class _TabbarPageState extends State<TabbarPage> {
     super.initState();
     _pageController = PageController(initialPage: _currentIndex);
     _itemDataList = [
-      TabBarItemData(title: '首页1', builder: (context)=> HomePage() ),
-      TabBarItemData(title: '首页2', builder: (context)=> HomePage() ),
+      TabBarItemData(title: '首页', builder: (context)=> HomePage() ),
+      TabBarItemData(title: '我的', builder: (context)=> MinePage() ),
     ];
   }
 

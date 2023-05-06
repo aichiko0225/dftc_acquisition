@@ -17,6 +17,7 @@ class Assets {
   static const String animationXiayu = 'statics/assets/animation/xiayu.gif';
   static const String assetsImagesIconPlay = 'statics/assets/images/icon_play_.png';
   static const String componentsConfig = 'lib/pages/introduce/components/config.dart';
+  static const String componentsConfigBottom = 'lib/pages/introduce/components/config_bottom.dart';
   static const String componentsIcDeleteGrey = 'statics/assets/components/ic_delete_grey.png';
   static const String componentsIcSearch = 'statics/assets/components/ic_search.png';
   static const String componentsIntroduceComponents = 'lib/pages/introduce/components/introduce_components.dart';
@@ -29,7 +30,6 @@ class Assets {
   static const String evaluationDetailsEvaluationDetailsLogic = 'lib/pages/evaluation_details/evaluation_details_logic.dart';
   static const String evaluationDetailsEvaluationDetailsView = 'lib/pages/evaluation_details/evaluation_details_view.dart';
   static const String evaluationDetailsEvaluationtForms = 'lib/pages/evaluation_details/evaluationt_forms.dart';
-  static const String evaluationDetailsSceneAnswer = 'lib/pages/evaluation_details/scene_answer.dart';
   static const String evaluationDetailsSceneParticulars = 'lib/pages/evaluation_details/scene_particulars.dart';
   static const String exampleImagesArrowUp = 'statics/assets/example_images/arrow_up.png';
   static const String exampleImagesEmptyState = 'statics/assets/example_images/empty_state.png';
@@ -178,15 +178,21 @@ class Assets {
   static const String launchLaunchLogic = 'lib/pages/launch/launch_logic.dart';
   static const String launchLaunchPage = 'lib/pages/launch/launch_page.dart';
   static const String libMain = 'lib/main.dart';
+  static const String loginLoginCaptchaImage = 'lib/pages/login/login_captcha_image.dart';
   static const String loginLoginCheckout = 'lib/pages/login/login_checkout.dart';
   static const String loginLoginLogic = 'lib/pages/login/login_logic.dart';
   static const String loginLoginView = 'lib/pages/login/login_view.dart';
+  static const String loginRegisterPage = 'lib/pages/login/register_page.dart';
+  static const String modelsLoginModel = 'lib/models/login_model.dart';
   static const String modelsTabbarItem = 'lib/models/tabbar_item.dart';
   static const String pagesWebviewPage = 'lib/pages/webview_page.dart';
   static const String questionnaireQuestionnaireLogic = 'lib/pages/questionnaire/questionnaire_logic.dart';
   static const String questionnaireQuestionnaireView = 'lib/pages/questionnaire/questionnaire_view.dart';
   static const String regionCity = 'statics/assets/region/city.json';
   static const String routesRoutes = 'lib/routes/routes.dart';
+  static const String servicesConstants = 'lib/services/constants.dart';
+  static const String servicesIndex = 'lib/services/index.dart';
+  static const String servicesLoginService = 'lib/services/login_service.dart';
   static const String statesAppState = 'lib/states/app_state.dart';
   static const String statesApplication = 'lib/states/application.dart';
   static const String tabbarBootxAppColourfulTabComponentSelected2 = 'statics/assets/tabbar/bootxApp_colourful_tab_component_Selected2.png';

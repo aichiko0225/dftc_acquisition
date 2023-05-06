@@ -1,6 +1,7 @@
 import 'package:bruno/bruno.dart';
 import 'package:dftc_acquisition/config/extensions.dart';
 import 'package:dftc_acquisition/generated/assets.dart';
+import 'package:dftc_acquisition/pages/login/login_captcha_image.dart';
 import 'package:dftc_acquisition/states/application.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -24,10 +25,12 @@ class _LoginPageState extends State<LoginPage> {
   //焦点
   final FocusNode _focusNodeUserName = FocusNode();
   final FocusNode _focusNodePassWord = FocusNode();
+  final FocusNode _focusImageCode = FocusNode();
 
   //用户名输入框控制器，此控制器可以监听用户名输入框操作
   final TextEditingController _userNameController = TextEditingController();
   final TextEditingController _pwdController = TextEditingController();
+  final TextEditingController _codeController = TextEditingController();
 
   @override
   void initState() {
@@ -44,6 +47,9 @@ class _LoginPageState extends State<LoginPage> {
     });
     _pwdController.addListener(() {
       logic.updatePassword(_pwdController.text);
+    });
+    _codeController.addListener(() {
+      logic.updateImageCode(_codeController.text);
     });
 
     initData();
@@ -80,10 +86,11 @@ class _LoginPageState extends State<LoginPage> {
     //点击登录按钮，解除焦点，回收键盘
     _focusNodePassWord.unfocus();
     _focusNodeUserName.unfocus();
+    _focusImageCode.unfocus();
     // 默认存用户名，如果选择记住密码，则用户名和密码都会存储
     if (logic.rememberPwd.value) {
-      Application.shared.appState
-          .loginSuccess("token", userName: logic.userName, password: logic.password);
+      Application.shared.appState.loginSuccess("token",
+          userName: logic.userName, password: logic.password);
     } else {
       Application.shared.appState
           .loginSuccess("token", userName: logic.userName);
@@ -92,7 +99,11 @@ class _LoginPageState extends State<LoginPage> {
     EasyLoading.show();
     Future.delayed(const Duration(milliseconds: 1000), () {
       EasyLoading.dismiss();
-      Get.offNamed(Routes.root);
+      if (GetPlatform.isWeb) {
+        EasyLoading.showError('账号密码错误！');
+      } else {
+        Get.offAllNamed(Routes.root);
+      }
     });
   }
 
@@ -110,6 +121,7 @@ class _LoginPageState extends State<LoginPage> {
           // 点击空白区域，回收键盘
           _focusNodePassWord.unfocus();
           _focusNodeUserName.unfocus();
+          _focusImageCode.unfocus();
         },
         child: Container(
           color: theme.fillBase,
@@ -134,8 +146,7 @@ class _LoginPageState extends State<LoginPage> {
 
   //输入文本框区域
   Widget _inputTextArea() {
-    return SizedBox(
-      height: 206.0,
+    return Container(
       child: Column(
         children: <Widget>[
           Container(
@@ -160,7 +171,7 @@ class _LoginPageState extends State<LoginPage> {
                 ),
                 hintText: "请输入用户名/手机号",
                 hintStyle:
-                    TextStyle(fontSize: 14.0, color: theme.colorTextSecondary),
+                TextStyle(fontSize: 14.0, color: theme.colorTextSecondary),
               ),
             ),
           ),
@@ -222,6 +233,47 @@ class _LoginPageState extends State<LoginPage> {
             height: 0.75,
             color: Color(0xFFD8D8D8),
           ),
+          Container(
+            margin: const EdgeInsets.only(top: 14),
+            padding: const EdgeInsets.only(left: 20.0, right: 20.0),
+            height: 50,
+            child: Row(
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Expanded(
+                  child: TextField(
+                    maxLength: 6,
+                    focusNode: _focusImageCode,
+                    controller: _codeController,
+                    keyboardType: TextInputType.text,
+                    style: TextStyle(
+                      fontSize: 14.0,
+                      color: theme.colorTextBase,
+                    ),
+                    decoration: InputDecoration(
+                      border: InputBorder.none,
+                      contentPadding: EdgeInsets.only(left: -6),
+                      icon: const Image(
+                        image: AssetImage(Assets.imagesIconVerification),
+                        width: 20,
+                        height: 20,
+                      ),
+                      hintStyle: TextStyle(
+                        fontSize: 14.0,
+                        color: theme.colorTextSecondary,
+                      ),
+                      hintText: "请输入验证码",
+                      counterText: '',
+                    ),
+                  ),
+                ),
+                Obx(() {
+                  return LoginCaptchaImage(
+                      imageStr: logic.captchaImageText.value);
+                })
+              ],
+            ),
+          ),
           _bottomArea(),
         ],
       ),
@@ -239,7 +291,7 @@ class _LoginPageState extends State<LoginPage> {
           Obx(() {
             return LoginCheckbox(
               iconPadding:
-                  EdgeInsets.only(right: 12, left: 5, top: 5, bottom: 5),
+              EdgeInsets.only(right: 12, left: 5, top: 5, bottom: 5),
               isSelected: logic.rememberPwd.value,
               onValueChangedAtIndex: (selected) async {
                 logic.rememberPwd.value = selected;
@@ -254,7 +306,8 @@ class _LoginPageState extends State<LoginPage> {
           }),
           TextButton(
             onPressed: () {
-              BrnToast.showInCenter(text: "立即注册", context: context);
+              // BrnToast.showInCenter(text: "立即注册", context: context);
+              Get.toNamed(Routes.register);
             },
             child: Text('立即注册',
                 style: TextStyle(
@@ -302,6 +355,7 @@ class _LoginPageState extends State<LoginPage> {
     _focusNodePassWord.removeListener(_focusNodeListener);
     _userNameController.dispose();
     _pwdController.dispose();
+    _codeController.dispose();
     super.dispose();
   }
 }
